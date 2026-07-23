@@ -22,8 +22,10 @@
   /* Nav */
   header.nav{position:sticky;top:0;z-index:10;background:rgba(14,17,22,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.01em;font-size:18px}
-  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff}
+  .brand{display:flex;align-items:center;gap:13px}
+  .logo{padding:7px 12px;border-radius:11px;background:linear-gradient(135deg,#2E7BE4 0%,#2FD0A8 100%);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;letter-spacing:.02em;color:#fff;line-height:1;box-shadow:0 4px 14px rgba(46,123,228,.35)}
+  .brand-name{font-weight:800;font-size:19px;letter-spacing:-.02em;color:var(--ink);position:relative;padding-bottom:4px}
+  .brand-name::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:2px;border-radius:2px;background:linear-gradient(90deg,#2E7BE4,#2FD0A8)}
   .nav nav{display:flex;gap:26px;font-size:14.5px;color:var(--slate)}
   .nav nav a:hover{color:var(--ink)}
   @media(max-width:640px){.nav nav{display:none}}
@@ -80,7 +82,7 @@
 
 <header class="nav">
   <div class="wrap">
-    <div class="brand"><span class="logo">GV</span> GVM Desarrollo TI</div>
+    <div class="brand"><span class="logo">GVM</span> <span class="brand-name">Desarrollo TI</span></div>
     <nav>
       <a href="#servicios">Servicios</a>
       <a href="#nosotros">Nosotros</a>
