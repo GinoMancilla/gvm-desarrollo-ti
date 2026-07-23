@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GVM Desarrollo TI — Software, automatización y bots de WhatsApp</title>
+<meta name="description" content="GVM Desarrollo TI. Desarrollo de software a medida, automatización de procesos y bots de WhatsApp para empresas en Chile.">
+<style>
+  :root{
+    --bg:#0E1116; --bg2:#141922; --card:#171D27; --ink:#EEF2F8; --slate:#9AA7B8; --faint:#66717F;
+    --line:#242C38; --accent:#4C7DF7; --accent2:#33C7A8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:10;background:rgba(14,17,22,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.01em;font-size:18px}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#fff}
+  .nav nav{display:flex;gap:26px;font-size:14.5px;color:var(--slate)}
+  .nav nav a:hover{color:var(--ink)}
+  @media(max-width:640px){.nav nav{display:none}}
+
+  /* Hero */
+  .hero{padding:90px 0 70px;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;top:-160px;right:-120px;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle,rgba(76,125,247,.16),transparent 62%);pointer-events:none}
+  .eyebrow{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:600}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.05;letter-spacing:-.03em;font-weight:850;margin:18px 0 20px;max-width:16ch}
+  .hero p.lead{font-size:clamp(17px,2.3vw,21px);color:var(--slate);max-width:52ch;margin-bottom:34px}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:11px;font-weight:650;font-size:15.5px;transition:transform .12s ease,opacity .12s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-p{background:linear-gradient(135deg,var(--accent),#3f6fe6);color:#fff}
+  .btn-s{border:1px solid var(--line);color:var(--ink)}
+
+  /* Sections */
+  section.blk{padding:64px 0;border-top:1px solid var(--line)}
+  .sec-eyebrow{font-family:ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:10px}
+  .sec-title{font-size:clamp(24px,3.6vw,34px);font-weight:800;letter-spacing:-.02em;margin-bottom:14px}
+  .sec-sub{color:var(--slate);max-width:60ch;font-size:16px;margin-bottom:36px}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:720px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px 24px;transition:border-color .15s ease,transform .15s ease}
+  .card:hover{border-color:#33415a;transform:translateY(-3px)}
+  .card .ic{width:44px;height:44px;border-radius:11px;background:var(--bg2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+  .card h3{font-size:18.5px;font-weight:700;margin-bottom:7px;letter-spacing:-.01em}
+  .card p{color:var(--slate);font-size:14.5px}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:center}
+  @media(min-width:820px){.about-grid{grid-template-columns:1.3fr 1fr}}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:20px}
+  .stat .n{font-size:28px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .l{color:var(--faint);font-size:13px;margin-top:3px}
+
+  /* Contact */
+  .contact{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:40px 34px;text-align:center}
+  .contact h2{font-size:clamp(24px,3.4vw,32px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .contact p{color:var(--slate);margin-bottom:26px;max-width:46ch;margin-left:auto;margin-right:auto}
+  .contact-rows{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto}
+  .crow{display:flex;align-items:center;gap:13px;justify-content:center;padding:13px 18px;background:var(--card);border:1px solid var(--line);border-radius:11px;font-size:15.5px}
+  .crow .k{color:var(--faint);font-size:13px;font-family:ui-monospace,monospace;min-width:70px;text-align:left}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--faint);font-size:13.5px}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:space-between;align-items:center}
+  .rut{font-family:ui-monospace,monospace}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brand"><span class="logo">GV</span> GVM Desarrollo TI</div>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Desarrollo de software · Chile</p>
+    <h1>Software y automatización que hacen crecer tu negocio</h1>
+    <p class="lead">Creamos sistemas a medida, integraciones y <strong>bots de WhatsApp</strong> que automatizan procesos y mejoran la atención de tus clientes.</p>
+    <div class="cta">
+      <a class="btn btn-p" href="#contacto">Conversemos tu proyecto →</a>
+      <a class="btn btn-s" href="#servicios">Ver servicios</a>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="servicios">
+  <div class="wrap">
+    <p class="sec-eyebrow">Servicios</p>
+    <h2 class="sec-title">Lo que desarrollamos</h2>
+    <p class="sec-sub">Soluciones tecnológicas enfocadas en resolver problemas reales de tu operación.</p>
+    <div class="grid c3">
+      <div class="card">
+        <div class="ic">💬</div>
+        <h3>Bots de WhatsApp</h3>
+        <p>Atención automatizada, cotizaciones, agendamiento y seguimiento por WhatsApp Business, integrados a tus sistemas.</p>
+      </div>
+      <div class="card">
+        <div class="ic">⚙️</div>
+        <h3>Software a medida</h3>
+        <p>Aplicaciones y paneles web construidos según tu proceso, no al revés. Desde el catálogo hasta el reporte.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🔗</div>
+        <h3>Integraciones y APIs</h3>
+        <p>Conectamos tus herramientas —ERP, planillas, correo, pagos— para que la información fluya sin trabajo manual.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🤖</div>
+        <h3>Automatización de procesos</h3>
+        <p>Eliminamos tareas repetitivas: notificaciones, respaldos, registros y flujos que antes hacías a mano.</p>
+      </div>
+      <div class="card">
+        <div class="ic">📊</div>
+        <h3>Paneles y reportería</h3>
+        <p>Indicadores en tiempo real para decidir con datos: ventas, actividad, seguimiento y más.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🛡️</div>
+        <h3>Despliegue y soporte</h3>
+        <p>Puesta en producción en la nube, con respaldos automáticos, seguridad y mantención continua.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="nosotros">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <p class="sec-eyebrow">Nosotros</p>
+        <h2 class="sec-title">Tecnología cercana y a la medida</h2>
+        <p class="sec-sub" style="margin-bottom:18px">GVM Desarrollo TI es un emprendimiento chileno de desarrollo de software y automatización. Trabajamos directo con cada cliente para entender su operación y entregar soluciones prácticas, seguras y mantenibles —sin complicaciones innecesarias.</p>
+        <p style="color:var(--slate);font-size:15px">Nos especializamos en bots de WhatsApp e integraciones que ahorran tiempo y ordenan la información del negocio.</p>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="n">100%</div><div class="l">A medida</div></div>
+        <div class="stat"><div class="n">24/7</div><div class="l">En la nube</div></div>
+        <div class="stat"><div class="n">WhatsApp</div><div class="l">Business API</div></div>
+        <div class="stat"><div class="n">Chile</div><div class="l">Atención local</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="contacto">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Hablemos de tu proyecto</h2>
+      <p>Cuéntanos qué necesitas automatizar o desarrollar y te respondemos a la brevedad.</p>
+      <div class="contact-rows">
+        <div class="crow"><span class="k">Correo</span> <a href="mailto:mancillagino@gmail.com">mancillagino@gmail.com</a></div>
+        <div class="crow"><span class="k">WhatsApp</span> <a href="https://wa.me/56948890696">+56 9 4889 0696</a></div>
+        <div class="crow"><span class="k">Ubicación</span> Puerto Montt, Región de Los Lagos, Chile</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 <strong>GVM Desarrollo TI</strong> · Gino Valerio Mancilla Adriazola</div>
+    <div class="rut">Giro: Desarrollo de software y servicios TI</div>
+  </div>
+</footer>
+
+</body>
+</html>
